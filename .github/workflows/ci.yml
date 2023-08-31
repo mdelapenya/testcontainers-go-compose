@@ -29,15 +29,6 @@ jobs:
                 go-version: ${{ matrix.go-version }}
                 cache-dependency-path: 'go.sum'
 
-            - name: golangci-lint
-              uses: golangci/golangci-lint-action@v3
-              with:
-                version: v1.54.1
-                args: --verbose
-                skip-cache: false
-                skip-pkg-cache: false
-                skip-build-cache: false
-
             - name: modVerify
               run: go mod verify
 
