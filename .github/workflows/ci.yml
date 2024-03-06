@@ -17,7 +17,7 @@ jobs:
         strategy:
           fail-fast: false
           matrix:
-            testcontainers-go-version: ["v0.28.0", "main"]
+            testcontainers-go-version: ["v0.29.1", "main"]
         name: 'Tests'
         runs-on: 'ubuntu-latest'
         steps:
