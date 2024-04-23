@@ -43,5 +43,7 @@ jobs:
 
             - name: go test
               timeout-minutes: 30
+              env:
+                RYUK_RECONNECTION_TIMEOUT: '30s'
               run: |
                 go test -v -count=1 ./...
