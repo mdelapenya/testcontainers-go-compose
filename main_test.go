@@ -2,26 +2,93 @@ package main
 
 import (
 	"context"
+	"fmt"
+	"log"
 	"path/filepath"
-	"testing"
-
-	"github.com/stretchr/testify/assert"
+	"time"
 
 	tccompose "github.com/testcontainers/testcontainers-go/modules/compose"
+	"github.com/testcontainers/testcontainers-go/wait"
 )
 
-func TestCompose(t *testing.T) {
+func ExampleCompose() {
 	compose, err := tccompose.NewDockerCompose(filepath.Join("testdata", "docker-compose.yml"))
-	assert.NoError(t, err, "NewDockerCompose()")
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	t.Cleanup(func() {
-		assert.NoError(t, compose.Down(context.Background(), tccompose.RemoveOrphans(true), tccompose.RemoveImagesLocal), "compose.Down()")
-	})
+	defer func() {
+		if err := compose.Down(context.Background(),
+			tccompose.RemoveOrphans(true), tccompose.RemoveImagesLocal); err != nil {
+			log.Fatal(err)
+		}
+	}()
 
 	ctx, cancel := context.WithCancel(context.Background())
-	t.Cleanup(cancel)
+	defer cancel()
 
-	assert.NoError(t, compose.Up(ctx, tccompose.Wait(true)), "compose.Up()")
+	err = compose.Up(ctx, tccompose.Wait(true))
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// do some testing here
+	serviceNames := compose.Services()
+	fmt.Println(serviceNames)
+
+	// Output: [mysql nginx]
+}
+
+func ExampleCompose_WaitForInvalidService() {
+	compose, err := tccompose.NewDockerCompose(filepath.Join("testdata", "docker-compose.yml"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer func() {
+		if err := compose.Down(context.Background(), tccompose.RemoveOrphans(true), tccompose.RemoveImagesLocal); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	err = compose.
+		// Appending with _1 as given in the Java Test-Containers Example
+		WaitForService("non-existent-srv-1", wait.NewLogStrategy("started").WithStartupTimeout(10*time.Second).WithOccurrence(1)).
+		Up(ctx, tccompose.Wait(true))
+
+	if err == nil {
+		log.Fatalf("Expected error to be thrown because service with wait strategy is not running: %s", err)
+	}
+
+	fmt.Println(err.Error())
+
+	// Output:
+	// no container found for service name non-existent-srv-1
+}
+
+func ExampleCompose_WaitForLogStrategy() {
+	compose, err := tccompose.NewDockerCompose(filepath.Join("testdata", "docker-compose.yml"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer func() {
+		if err := compose.Down(context.Background(), tccompose.RemoveOrphans(true), tccompose.RemoveImagesLocal); err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	err = compose.
+		WaitForService("mysql", wait.NewLogStrategy("started").WithStartupTimeout(10*time.Second).WithOccurrence(1)).
+		Up(ctx, tccompose.Wait(true))
+
+	fmt.Println(err)
+
+	// Output:
+	// <nil>
 }
