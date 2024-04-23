@@ -54,7 +54,6 @@ func ExampleCompose_WaitForInvalidService() {
 	defer cancel()
 
 	err = compose.
-		// Appending with _1 as given in the Java Test-Containers Example
 		WaitForService("non-existent-srv-1", wait.NewLogStrategy("started").WithStartupTimeout(10*time.Second).WithOccurrence(1)).
 		Up(ctx, tccompose.Wait(true))
 
