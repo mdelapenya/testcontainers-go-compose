@@ -41,6 +41,9 @@ jobs:
             - name: modTidy
               run: go mod tidy
 
+            - name: warm up Docker images
+              run: docker compose -f testdata/docker-compose.yml pull
+
             - name: go test
               timeout-minutes: 30
               env:
