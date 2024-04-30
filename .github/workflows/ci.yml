@@ -45,5 +45,7 @@ jobs:
               timeout-minutes: 30
               env:
                 RYUK_RECONNECTION_TIMEOUT: '30s'
+                TESTCONTAINERS_RYUK_DISABLED: false
+                TESTCONTAINERS_RYUK_CONTAINER_PRIVILEGED: true
               run: |
                 go test -v -count=1 ./...
