@@ -48,5 +48,7 @@ jobs:
                 RYUK_CONNECTION_TIMEOUT: '120s'
                 # defines the timeout for Ryuk to reconnect to Docker (default: 10s). Value layout is described in time.ParseDuration documentation.
                 RYUK_RECONNECTION_TIMEOUT: '30s'
+                TESTCONTAINERS_RYUK_DISABLED: false
+                TESTCONTAINERS_RYUK_CONTAINER_PRIVILEGED: true
               run: |
                 go test -v -count=1 ./...
