@@ -4,8 +4,6 @@ go 1.21
 
 toolchain go1.21.3
 
-replace github.com/cucumber/godog => github.com/laurazard/godog v0.0.0-20220831081700-c35ea0b236ed
-
 require (
 	github.com/testcontainers/testcontainers-go v0.30.0
 	github.com/testcontainers/testcontainers-go/modules/compose v0.30.0
