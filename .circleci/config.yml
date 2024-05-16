@@ -14,7 +14,7 @@ executors:
      platform: "linux/amd64"
 
 jobs:
-  install-gvm:
+  tests:
     executor: machine_executor_amd64
     steps:
       - run:
@@ -24,24 +24,12 @@ jobs:
             curl -sL -o ~/gvmbin/gvm https://github.com/andrewkroh/gvm/releases/download/v0.5.2/gvm-linux-amd64
             chmod +x ~/gvmbin/gvm
             echo 'export PATH=$PATH:~/gvmbin' >> "$BASH_ENV"
-
-  install-go-1-21:
-    executor: machine_executor_amd64
-    environment:
-      PATH: $PATH:~/gvmbin
-    steps:
       - run:
           name: Install Go
           command: |
             eval "$(gvm 1.21.7)"
             echo 'eval "$(gvm 1.21.7)"' >> "$BASH_ENV"
             go version
-
-  tests:
-    executor: machine_executor_amd64
-    environment:
-      PATH: $PATH:~/gvmbin
-    steps:
       - run:
           name: check Go version
           command: |
@@ -58,11 +46,5 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-      - install-gvm
-      - install-go-1-21:
-          requires:
-            - install-gvm
-      - tests:
-          requires:
-            - install-go-1-21
+      - tests
 
