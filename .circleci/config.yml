@@ -20,7 +20,7 @@ jobs:
       - run:
           name: Install Go
           command: |
-            curl -sL -o ~/bin/gvm https://github.com/andrewkroh/gvm/releases/download/v0.5.2/gvm-linux-amd64 \
+            curl -sL -o ~/bin/gvm https://github.com/andrewkroh/gvm/releases/download/v0.5.2/gvm-linux-amd64
             chmod +x ~/bin/gvm
             eval "$(gvm 1.21.7)"
             go version
