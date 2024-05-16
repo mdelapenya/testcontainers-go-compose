@@ -38,9 +38,9 @@ jobs:
     executor: machine_executor_amd64
     steps:
       - run:
-          name: check path
+          name: check Go version
           command: |
-            echo "$BASH_ENV"
+            go version
       - checkout # checkout source code
       - go/load-cache # Load cached Go modules.
       - go/mod-download # Run 'go mod download'.
