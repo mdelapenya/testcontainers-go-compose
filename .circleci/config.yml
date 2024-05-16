@@ -1,11 +1,18 @@
 # This config was automatically generated from your source code
 # Stacks detected: artifact:go-executable:,cicd:github-actions:.github/workflows,deps:go:.
 version: 2.1
+
+executors:
+ machine_executor_amd64:
+   machine:
+     image: ubuntu-2204:2022.04.2
+   environment:
+     architecture: "amd64"
+     platform: "linux/amd64"
+
 jobs:
   test-go-21:
-    # Install go modules and run tests
-    docker:
-      - image: cimg/go:1.21
+    executor: machine_executor_amd64
     steps:
       - checkout
       - restore_cache:
