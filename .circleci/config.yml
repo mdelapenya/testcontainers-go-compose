@@ -51,5 +51,5 @@ workflows:
       - install-go-1-21
       - tests:
           requires:
-            - install-go-1.21
+            - install-go-1-21
 
