@@ -48,7 +48,9 @@ workflows:
   build-and-test:
     jobs:
       - install-gvm
-      - install-go-1-21
+      - install-go-1-21:
+          requires:
+            - install-gvm
       - tests:
           requires:
             - install-go-1-21
