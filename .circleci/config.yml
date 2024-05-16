@@ -27,6 +27,8 @@ jobs:
 
   install-go-1-21:
     executor: machine_executor_amd64
+    environment:
+      PATH: $PATH:~/gvmbin
     steps:
       - run:
           name: Install Go
@@ -37,6 +39,8 @@ jobs:
 
   tests:
     executor: machine_executor_amd64
+    environment:
+      PATH: $PATH:~/gvmbin
     steps:
       - run:
           name: check Go version
