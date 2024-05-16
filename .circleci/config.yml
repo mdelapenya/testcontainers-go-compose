@@ -30,10 +30,6 @@ jobs:
             eval "$(gvm 1.21.7)"
             echo 'eval "$(gvm 1.21.7)"' >> "$BASH_ENV"
             go version
-      - run:
-          name: check Go version
-          command: |
-            go version
       - checkout # checkout source code
       - go/load-cache # Load cached Go modules.
       - go/mod-download # Run 'go mod download'.
