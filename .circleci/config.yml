@@ -16,6 +16,9 @@ executors:
 jobs:
   tests:
     executor: machine_executor_amd64
+    parameters:
+      go-version:
+        type: string
     steps:
       - run:
           name: Install GVM
@@ -27,8 +30,8 @@ jobs:
       - run:
           name: Install Go
           command: |
-            eval "$(gvm 1.21.7)"
-            echo 'eval "$(gvm 1.21.7)"' >> "$BASH_ENV"
+            eval "$(gvm << parameters.go-version >>)"
+            echo 'eval "$(gvm << parameters.go-version >>)"' >> "$BASH_ENV"
             go version
       - checkout # checkout source code
       - go/load-cache # Load cached Go modules.
@@ -42,5 +45,7 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-      - tests
-
+      - tests:
+          matrix:
+            parameters:
+              go-version: ["1.21.x", "1.x"]
