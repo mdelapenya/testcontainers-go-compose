@@ -39,7 +39,9 @@ jobs:
     steps:
       - run:
           name: check path
-          command: echo $PATH
+          command: |
+            cat ~/.bashrc
+            echo $PATH
       - checkout # checkout source code
       - go/load-cache # Load cached Go modules.
       - go/mod-download # Run 'go mod download'.
