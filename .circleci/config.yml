@@ -30,6 +30,7 @@ jobs:
           name: Install Go
           command: |
             eval "$(gvm 1.21.7)"
+            echo "eval \"$(gvm 1.21.7)\"" >> ~/.bash_profile
             go version
 
   tests:
