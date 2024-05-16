@@ -41,6 +41,8 @@ jobs:
       - run:
           name: check Go version
           command: |
+            cat "$BASH_ENV"
+            cat "$(cat $BASH_ENV)"
             go version
       - checkout # checkout source code
       - go/load-cache # Load cached Go modules.
