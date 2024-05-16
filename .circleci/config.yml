@@ -23,7 +23,7 @@ jobs:
             - /home/circleci/go/pkg/mod
       - run:
           name: Run tests
-          command: gotestsum --junitfile junit.xml
+          command: gotestsum --format standard-verbose --junitfile junit.xml
       - store_test_results:
           path: junit.xml
 
