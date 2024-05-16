@@ -2,17 +2,14 @@
 # Stacks detected: artifact:go-executable:,cicd:github-actions:.github/workflows,deps:go:.
 version: 2.1
 
-executors:
- machine_executor_amd64:
-   machine:
-     image: ubuntu-2204:2022.04.2
-   environment:
-     architecture: "amd64"
-     platform: "linux/amd64"
+orbs:
+  go: circleci/go@1.11.0
 
 jobs:
   test-go-21:
-    executor: machine_executor_amd64
+    executor:
+      name: go/default # Use the default executor from the orb
+      tag: '1.21.7' # Specify a version tag
     steps:
       - checkout
       - restore_cache:
