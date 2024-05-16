@@ -1,9 +1,4 @@
-# This config was automatically generated from your source code
-# Stacks detected: artifact:go-executable:,cicd:github-actions:.github/workflows,deps:go:.
 version: 2.1
-
-orbs:
-  go: circleci/go@1.11.0
 
 executors:
  machine_executor_amd64:
