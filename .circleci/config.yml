@@ -22,7 +22,7 @@ jobs:
           command: |
             curl -sL -o ~/bin/gvm https://github.com/andrewkroh/gvm/releases/download/v0.5.2/gvm-linux-amd64
             chmod +x ~/bin/gvm
-            echo "PATH=${PATH}:~/bin" >> /etc/profile
+            echo "PATH=${PATH}:~/bin" >> "$BASH_ENV"
 
   install-go-1-21:
     executor: machine_executor_amd64
@@ -31,7 +31,7 @@ jobs:
           name: Install Go
           command: |
             eval "$(gvm 1.21.7)"
-            echo "eval \"$(gvm 1.21.7)\"" >> /etc/profile
+            echo "eval \"$(gvm 1.21.7)\"" >> "$BASH_ENV"
             go version
 
   tests:
@@ -40,8 +40,7 @@ jobs:
       - run:
           name: check path
           command: |
-            cat /etc/profile
-            echo $PATH
+            echo "$BASH_ENV"
       - checkout # checkout source code
       - go/load-cache # Load cached Go modules.
       - go/mod-download # Run 'go mod download'.
