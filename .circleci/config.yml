@@ -20,9 +20,10 @@ jobs:
       - run:
           name: Install GVM
           command: |
-            curl -sL -o ~/bin/gvm https://github.com/andrewkroh/gvm/releases/download/v0.5.2/gvm-linux-amd64
-            chmod +x ~/bin/gvm
-            echo 'export PATH=${PATH}:~/bin' >> "$BASH_ENV"
+            mkdir ~/gvmbin
+            curl -sL -o ~/gvmbin/gvm https://github.com/andrewkroh/gvm/releases/download/v0.5.2/gvm-linux-amd64
+            chmod +x ~/gvmbin/gvm
+            echo 'export PATH=$PATH:~/gvmbin' >> "$BASH_ENV"
 
   install-go-1-21:
     executor: machine_executor_amd64
