@@ -14,16 +14,27 @@ executors:
      platform: "linux/amd64"
 
 jobs:
-  test-go-21:
+  install-gvm:
+    executor: machine_executor_amd64
+    steps:
+      - run:
+          name: Install GVM
+          command: |
+            curl -sL -o ~/bin/gvm https://github.com/andrewkroh/gvm/releases/download/v0.5.2/gvm-linux-amd64
+            chmod +x ~/bin/gvm
+
+  install-go-1.21:
     executor: machine_executor_amd64
     steps:
       - run:
           name: Install Go
           command: |
-            curl -sL -o ~/bin/gvm https://github.com/andrewkroh/gvm/releases/download/v0.5.2/gvm-linux-amd64
-            chmod +x ~/bin/gvm
             eval "$(gvm 1.21.7)"
             go version
+
+  tests:
+    executor: machine_executor_amd64
+    steps:
       - checkout # checkout source code
       - go/load-cache # Load cached Go modules.
       - go/mod-download # Run 'go mod download'.
@@ -36,5 +47,9 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-      - test-go-21
+      - install-gvm
+      - install-go-1.21
+      - tests:
+          requires:
+            - install-go-1.21
 
