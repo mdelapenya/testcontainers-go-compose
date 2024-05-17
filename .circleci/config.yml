@@ -64,6 +64,7 @@ workflows:
           name: "Testcontainers Cloud"
           pre-steps:
            - tcc/setup
-          parameters:
-            go-version: ["1.22.3"]
-            tcgo-version: ["main"]
+          matrix:
+            parameters:
+              go-version: ["1.22.3"]
+              tcgo-version: ["main"]
