@@ -56,6 +56,12 @@ jobs:
           failfast: true
           race: true
 
+commands:
+  clean_up_workspace:
+    steps:
+      - run: rm -rf * || true
+      - run: rm -rf .* || true
+
 workflows:
   build-and-test:
     jobs:
@@ -67,7 +73,8 @@ workflows:
       - tests:
           name: "Testcontainers Cloud"
           pre-steps:
-           - tcc/setup
+            - clean_up_workspace
+            - tcc/setup
           matrix:
             parameters:
               go-version: ["1.22.3"]
