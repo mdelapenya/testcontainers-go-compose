@@ -23,7 +23,7 @@ jobs:
       tcgo-version:
         type: string
       run-on-tcc:
-        type: bool
+        type: boolean
     steps:
       - checkout # checkout source code
 
