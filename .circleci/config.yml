@@ -23,6 +23,8 @@ jobs:
       tcgo-version:
         type: string
     steps:
+      - checkout # checkout source code
+
       - run:
           name: Install GVM
           command: |
@@ -38,7 +40,6 @@ jobs:
             echo 'eval "$(gvm << parameters.go-version >>)"' >> "$BASH_ENV"
             go version
 
-      - checkout # checkout source code
       - go/load-cache # Load cached Go modules.
 
       - run:
