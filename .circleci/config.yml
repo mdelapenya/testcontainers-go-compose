@@ -4,6 +4,7 @@ version: 2.1
 
 orbs:
   go: circleci/go@1.11.0
+  tcc: atomicjar/testcontainers-cloud-orb@0.1.0
 
 executors:
  machine_executor_amd64:
@@ -21,7 +22,16 @@ jobs:
         type: string
       tcgo-version:
         type: string
+      run-on-tcc:
+        type: boolean
     steps:
+      - checkout # checkout source code
+
+      - when:
+          condition: << parameters.run-on-tcc >>
+          steps:
+            - tcc/setup
+
       - run:
           name: Install GVM
           command: |
@@ -29,13 +39,14 @@ jobs:
             curl -sL -o ~/gvmbin/gvm https://github.com/andrewkroh/gvm/releases/download/v0.5.2/gvm-linux-amd64
             chmod +x ~/gvmbin/gvm
             echo 'export PATH=$PATH:~/gvmbin' >> "$BASH_ENV"
+
       - run:
           name: Install Go
           command: |
             eval "$(gvm << parameters.go-version >>)"
             echo 'eval "$(gvm << parameters.go-version >>)"' >> "$BASH_ENV"
             go version
-      - checkout # checkout source code
+
       - go/load-cache # Load cached Go modules.
 
       - run:
@@ -46,10 +57,17 @@ jobs:
 
       - go/mod-download # Run 'go mod download'.
       - go/save-cache # Save Go modules to cache.
+
       - go/test: # Runs 'go test ./...' but includes extensive parameterization for finer tuning.
           covermode: atomic
           failfast: true
           race: true
+
+commands:
+  clean_up_workspace:
+    steps:
+      - run: rm -rf * || true
+      - run: rm -rf .* || true
 
 workflows:
   build-and-test:
@@ -59,3 +77,13 @@ workflows:
             parameters:
               go-version: ["1.21.7", "1.22.3"]
               tcgo-version: ["v0.31.0", "main"]
+              run-on-tcc: [false]
+      - tests:
+          name: "Testcontainers Cloud"
+          pre-steps:
+            - clean_up_workspace
+          matrix:
+            parameters:
+              go-version: ["1.22.3"]
+              tcgo-version: ["main"]
+              run-on-tcc: [true]
