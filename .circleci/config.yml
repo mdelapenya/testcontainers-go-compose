@@ -73,7 +73,7 @@ workflows:
   build-and-test:
     jobs:
       - tests:
-          name: "tc-go << parameters.tcgo-version >> - Go << parameters.go-version >>"
+          name: "tc-go << matrix.tcgo-version >> - Go << matrix.go-version >>"
           matrix:
             parameters:
               go-version: ["1.21.7", "1.22.3"]
