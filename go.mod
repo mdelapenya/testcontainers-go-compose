@@ -2,7 +2,7 @@ module github.com/mdelapenya/testcontainers-go-compose
 
 go 1.21
 
-toolchain go1.21.3
+toolchain go1.22.6
 
 require (
 	github.com/testcontainers/testcontainers-go v0.32.0
