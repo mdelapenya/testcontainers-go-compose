@@ -76,7 +76,7 @@ workflows:
           name: "tc-go << matrix.tcgo-version >> - Go << matrix.go-version >>"
           matrix:
             parameters:
-              go-version: ["1.22.x", "1.23.x"]
+              go-version: ["1.22", "1.23"]
               tcgo-version: ["v0.33.0", "main"]
               run-on-tcc: [false]
       - tests:
@@ -85,6 +85,6 @@ workflows:
             - clean_up_workspace
           matrix:
             parameters:
-              go-version: ["1.23.x"]
+              go-version: ["1.23"]
               tcgo-version: ["main"]
               run-on-tcc: [true]
