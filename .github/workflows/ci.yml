@@ -17,7 +17,7 @@ jobs:
         strategy:
           fail-fast: false
           matrix:
-            testcontainers-go-version: ["v0.32.0", "main"]
+            testcontainers-go-version: ["v0.33.0", "main"]
         name: 'Tests'
         runs-on: 'ubuntu-latest'
         steps:
@@ -27,7 +27,7 @@ jobs:
             - name: Set up Go
               uses: actions/setup-go@v5
               with:
-                go-version: 1.21.x
+                go-version-file: 'go.mod'
                 cache-dependency-path: 'go.sum'
 
             - name: Use testcontainers-go@${{ matrix.testcontainers-go-version }}
