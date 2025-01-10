@@ -64,7 +64,7 @@ func ExampleCompose_WaitForInvalidService() {
 	fmt.Println(err.Error())
 
 	// Output:
-	// no container found for service name non-existent-srv-1
+	// wait for services: no container found for service name non-existent-srv-1
 }
 
 func ExampleCompose_WaitForLogStrategy() {
