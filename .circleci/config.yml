@@ -53,7 +53,6 @@ jobs:
           name: Use testcontainers-go@<< parameters.tcgo-version >>
           command: |
             go get github.com/testcontainers/testcontainers-go/modules/compose@<< parameters.tcgo-version >>
-            go get github.com/testcontainers/testcontainers-go@<< parameters.tcgo-version >>
 
       - go/mod-download # Run 'go mod download'.
       - go/save-cache # Save Go modules to cache.
@@ -77,7 +76,7 @@ workflows:
           matrix:
             parameters:
               go-version: ["1.22", "1.23"]
-              tcgo-version: ["v0.33.0", "main"]
+              tcgo-version: ["v0.35.0", "main"]
               run-on-tcc: [false]
       - tests:
           name: "Testcontainers Cloud"

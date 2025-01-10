@@ -38,7 +38,7 @@ func ExampleCompose() {
 	// Output: [mysql nginx]
 }
 
-func ExampleCompose_WaitForInvalidService() {
+func ExampleCompose_waitForInvalidService() {
 	compose, err := tccompose.NewDockerCompose(filepath.Join("testdata", "docker-compose.yml"))
 	if err != nil {
 		log.Fatal(err)
@@ -64,10 +64,10 @@ func ExampleCompose_WaitForInvalidService() {
 	fmt.Println(err.Error())
 
 	// Output:
-	// no container found for service name non-existent-srv-1
+	// wait for services: no container found for service name non-existent-srv-1
 }
 
-func ExampleCompose_WaitForLogStrategy() {
+func ExampleCompose_waitForLogStrategy() {
 	compose, err := tccompose.NewDockerCompose(filepath.Join("testdata", "docker-compose.yml"))
 	if err != nil {
 		log.Fatal(err)
