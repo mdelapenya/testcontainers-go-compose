@@ -53,7 +53,6 @@ jobs:
           name: Use testcontainers-go@<< parameters.tcgo-version >>
           command: |
             go get github.com/testcontainers/testcontainers-go/modules/compose@<< parameters.tcgo-version >>
-            go get github.com/testcontainers/testcontainers-go@<< parameters.tcgo-version >>
 
       - go/mod-download # Run 'go mod download'.
       - go/save-cache # Save Go modules to cache.
