@@ -24,4 +24,4 @@ The configuration is in the [`.circleci/config.yml` file](./.circleci/config.yml
 
 This repository contains a Gitlab CI configuration for running the tests with Testcontainers for Go.
 
-The configuration is in the [`.gitlab/gitlab-ci.yml` file](./.gitlab/gitlab-ci.yml), and the Gitlab repository is [here](https://gitlab.com/mdelapenya/testcontainers-go-compose-example).
+The configuration is in the [`.gitlab/gitlab-ci.yml` file](./.gitlab/gitlab-ci.yml), and the Gitlab repository is [here](https://gitlab.com/mdelapenya/testcontainers-go-compose).
