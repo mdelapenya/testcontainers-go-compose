@@ -47,7 +47,7 @@ jobs:
             echo 'eval "$(gvm << parameters.go-version >>)"' >> "$BASH_ENV"
             go version
 
-      - go/load-cache # Load cached Go modules.
+      - go/load-mod-cache # Load cached Go modules.
 
       - run:
           name: Use testcontainers-go@<< parameters.tcgo-version >>
@@ -56,7 +56,7 @@ jobs:
             go get github.com/testcontainers/testcontainers-go@<< parameters.tcgo-version >>
 
       - go/mod-download # Run 'go mod download'.
-      - go/save-cache # Save Go modules to cache.
+      - go/save-mod-cache # Save Go modules to cache.
 
       - go/test: # Runs 'go test ./...' but includes extensive parameterization for finer tuning.
           covermode: atomic
