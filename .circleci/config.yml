@@ -3,7 +3,7 @@
 version: 2.1
 
 orbs:
-  go: circleci/go@2.2.4
+  go: circleci/go@2.2.5
   tcc: atomicjar/testcontainers-cloud-orb@0.1.0
 
 executors:
