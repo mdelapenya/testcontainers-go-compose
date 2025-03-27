@@ -11,7 +11,7 @@ import (
 	"github.com/testcontainers/testcontainers-go/wait"
 )
 
-func ExampleCompose() {
+func Example_compose() {
 	compose, err := tccompose.NewDockerCompose(filepath.Join("testdata", "docker-compose.yml"))
 	if err != nil {
 		log.Fatal(err)
@@ -38,7 +38,7 @@ func ExampleCompose() {
 	// Output: [mysql nginx]
 }
 
-func ExampleCompose_waitForInvalidService() {
+func Example_compose_waitForInvalidService() {
 	compose, err := tccompose.NewDockerCompose(filepath.Join("testdata", "docker-compose.yml"))
 	if err != nil {
 		log.Fatal(err)
@@ -67,7 +67,7 @@ func ExampleCompose_waitForInvalidService() {
 	// wait for services: no container found for service name non-existent-srv-1
 }
 
-func ExampleCompose_waitForLogStrategy() {
+func Example_compose_waitForLogStrategy() {
 	compose, err := tccompose.NewDockerCompose(filepath.Join("testdata", "docker-compose.yml"))
 	if err != nil {
 		log.Fatal(err)
