@@ -1,6 +1,6 @@
 module github.com/mdelapenya/testcontainers-go-compose
 
-go 1.22
+go 1.24
 
 require (
 	github.com/testcontainers/testcontainers-go v0.36.0
